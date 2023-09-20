@@ -4,6 +4,7 @@ import { CloseMenu } from "../Utils/appSlice";
 import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
+import VideoInfo from "./VideoInfo";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -31,6 +32,7 @@ const WatchPage = () => {
           <LiveChat />
         </div>
       </div>
+      <VideoInfo/>
       <CommentsContainer />
     </div>
   );
