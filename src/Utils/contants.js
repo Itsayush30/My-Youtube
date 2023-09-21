@@ -27,7 +27,7 @@ export function formatNumber(number) {
     return (number / 1e3).toFixed(1) + "K";
   } else {
     // Leave the number as is
-    return number.toString();
+    return number?.toString();
   }
 }
 
