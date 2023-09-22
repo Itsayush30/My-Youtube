@@ -19,7 +19,7 @@ const VideoInfo = () => {
   const getVideos = async () => {
     const data = await fetch(VIDEO_API + desiredId);
     const json = await data.json();
-    console.log(data.json);
+    console.log(json.items);
     setVideos(json.items[0]);
   };
 

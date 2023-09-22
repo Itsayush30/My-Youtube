@@ -26,8 +26,8 @@ const LiveChat = () => {
   }, []);
 
   return (
-    <div className="">
-      <div className="h-[630px] ml-2 p-2 border border-black bg-slate-100 rounded-l overflow-y-scroll flex flex-col-reverse ">
+    <div className=" border border-yellow-400 h-[630px] ">
+      <div className=" h-[580px] ml-2 p-2 border border-black bg-slate-100 rounded-l overflow-y-scroll flex flex-col-reverse ">
         {chatMessages.map((c, i) => (
           <ChatMessage key={i} name={c.name} message={c.message} />
         ))}
@@ -48,7 +48,7 @@ const LiveChat = () => {
           }}
         >
           <input
-            className="px-2 w-[630px]"
+            className="px-2"
             type="text"
             value={livemessage}
             onChange={(e) => {
