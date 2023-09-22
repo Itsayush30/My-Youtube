@@ -17,25 +17,49 @@ const VideoDescription = ({ info }) => {
 
 export default VideoDescription; */
 
-import React from "react";
+import React, { useState } from "react";
 import { calculateTimeAgo, formatNumber } from "../Utils/contants";
 
 const VideoDescription = ({ info }) => {
+  const [showDescription, setShowDescription] = useState(false);
+  const {
+    snippet: { channelTitle, title, description, publishedAt } = {},
+    statistics: { viewCount } = {},
+  } = info ?? {};
+
+  /*/info ?? {} uses the nullish coalescing operator (??) 
+  to ensure that if info is null or undefined, an empty object {} 
+  is used as a fallback. This prevents potential "Cannot read property '...' 
+  of null" or "Cannot read property '...' of undefined" errors when 
+  destructuring the object.*/
+
   console.log(info);
+
+  const truncatedDescription = showDescription
+    ? description
+    : `${description?.substring(0, 200)}...`;
 
   //optional chaining is very important
   return (
     <div className="m-2">
       <div className="m-2">
-        <p className="font-extrabold text-xl">{info?.snippet?.title}</p>
-        <p className="text-gray-500">{info?.snippet?.channelTitle}</p>
+        <p className="font-extrabold text-xl">{title}</p>
+        <p className="text-gray-500">{channelTitle}</p>
       </div>
-      <div className=" m-2 p-2 border border-black bg-slate-100 rounded-md">
-        <div className="flex font-semibold">
-        <p>{formatNumber(info?.statistics?.viewCount)}</p>
-        <p className="ml-3">{calculateTimeAgo(info?.snippet?.publishedAt)}</p>
+      <div className=" m-2 p-2 md:w-3/5 md:mr-3 mb-4 border border-black bg-slate-100 rounded-md">
+        <div className="flex font-semibold ">
+          <p>{formatNumber(viewCount)}</p>
+          <p className="ml-3">{calculateTimeAgo(publishedAt)}</p>
         </div>
-        <p>{info?.snippet?.description}</p>
+        <div >
+          <p>{truncatedDescription}</p>
+          <button
+            className="font-bold"
+            onClick={() => setShowDescription(!showDescription)}
+          >
+            {showDescription ? "Show Less" : "Show More"}
+          </button>
+        </div>
       </div>
     </div>
   );

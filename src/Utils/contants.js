@@ -14,6 +14,11 @@ export const VIDEO_API =
   GOOGLE_API_KEY +
   "&id=";
 
+export const COMMENTS_API =
+  "https://www.googleapis.com/youtube/v3/commentThreads?textFormat=plainText&part=snippet&maxResults=50&key=" +
+  GOOGLE_API_KEY +
+  "&videoId=";
+
 //Generated this function from chatgpt
 export function formatNumber(number) {
   if (number >= 1e9) {
@@ -50,3 +55,39 @@ export function calculateTimeAgo(publishedAt) {
     return `${daysAgo} day${daysAgo !== 1 ? "s" : ""} ago`;
   }
 }
+
+const formatDescription = (descriptionText) => {
+  if (!descriptionText || typeof descriptionText !== "string") {
+    return [];
+  }
+
+  const urlRegex = /(http[s]?:\/\/[^\s]+)/g;
+  const hashtagRegex = /#(\w+)/g;
+
+  const lines = descriptionText.split("\n");
+  const formattedLines = lines.map((line, index) => {
+    const words = line.split(" ");
+    const formattedWords = words.map((word, wordIndex) => {
+      if (urlRegex.test(word)) {
+        return (
+          <span key={wordIndex} className="text-blue-500">
+            <a href={word} target="_blank">
+              {word}
+            </a>
+          </span>
+        );
+      } else if (hashtagRegex.test(word)) {
+        return (
+          <span key={wordIndex} className="text-blue-600">
+            {word}
+          </span>
+        );
+      }
+      return <span key={wordIndex}>{word}</span>;
+    });
+
+    return <p key={index}>{formattedWords}</p>;
+  });
+
+  return formattedLines;
+};

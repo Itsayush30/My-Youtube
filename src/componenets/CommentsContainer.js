@@ -1,90 +1,27 @@
-import React from "react";
-
-const commentsData = [
-  {
-    name: "Ayush Gupta",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
-    replies: [],
-  },
-  {
-    name: "Ayush Gupta",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
-    replies: [
-      {
-        name: "Ayush Gupta",
-        text: "Lorem ipsum dolor sit amet, consectetur adip",
-        replies: [],
-      },
-      {
-        name: "Ayush Gupta",
-        text: "Lorem ipsum dolor sit amet, consectetur adip",
-        replies: [
-          {
-            name: "Ayush Gupta",
-            text: "Lorem ipsum dolor sit amet, consectetur adip",
-            replies: [
-              {
-                name: "Ayush Gupta",
-                text: "Lorem ipsum dolor sit amet, consectetur adip",
-                replies: [
-                  {
-                    name: "Ayush Gupta",
-                    text: "Lorem ipsum dolor sit amet, consectetur adip",
-                    replies: [
-                      {
-                        name: "Ayush Gupta",
-                        text: "Lorem ipsum dolor sit amet, consectetur adip",
-                        replies: [],
-                      },
-                    ],
-                  },
-                  {
-                    name: "Ayush Gupta",
-                    text: "Lorem ipsum dolor sit amet, consectetur adip",
-                    replies: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "Ayush Gupta",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
-    replies: [],
-  },
-  {
-    name: "Ayush Gupta",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
-    replies: [],
-  },
-  {
-    name: "Ayush Gupta",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
-    replies: [],
-  },
-  {
-    name: "Ayush Gupta",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
-    replies: [],
-  },
-];
+import React, { useEffect, useState } from "react";
+import { COMMENTS_API, calculateTimeAgo } from "../Utils/contants";
+import { useSearchParams } from "react-router-dom";
 
 const Comment = ({ data }) => {
-  const { name, text } = data;
   return (
-    <div className="flex  shadow-sm bg-gray-100 p-2 rounded-lg my-2">
+    <div className="flex  p-2 rounded-lg my-2">
       <img
-        className="w-12 h-12"
+        className="w-12 h-12 rounded-full"
         alt="user"
-        src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+        src={data?.snippet?.topLevelComment?.snippet?.authorProfileImageUrl}
       />
       <div className="px-3">
-        <p className="font-bold">{name}</p>
-        <p>{text}</p>
+        <div className="flex items-center">
+          <p className="font-bold">
+            {data?.snippet?.topLevelComment?.snippet?.authorDisplayName}
+          </p>
+          <p className="ml-2 text-xs text-gray-500 r">
+            {calculateTimeAgo(
+              data?.snippet?.topLevelComment?.snippet?.publishedAt
+            )}
+          </p>
+        </div>
+        <p>{data?.snippet?.topLevelComment?.snippet?.textDisplay}</p>
       </div>
     </div>
   );
@@ -92,10 +29,11 @@ const Comment = ({ data }) => {
 
 const CommentList = ({ comments }) => {
   //Disclaimer: Don't use indexes as keys
-  return comments.map((comment, index) => (
+  //Comment reply not found in API
+  return comments?.map((comment, index) => (
     <div key={index}>
       <Comment data={comment} />
-      <div className="pl-5 border border-l-black ml-5">
+      <div className="pl-5 ml-5">
         <CommentList comments={comment.replies} />
       </div>
     </div>
@@ -103,10 +41,27 @@ const CommentList = ({ comments }) => {
 };
 
 const CommentsContainer = () => {
+  const [Commentss, setComments] = useState([]);
+
+  const [searchParams] = useSearchParams();
+
+  const VideoId = searchParams.get("v");
+
+  useEffect(() => {
+    getcomment();
+  }, []);
+
+  const getcomment = async () => {
+    const data = await fetch(COMMENTS_API + VideoId);
+    const json = await data.json();
+    console.log(json.items);
+    setComments(json.items);
+  };
+
   return (
-    <div className="m-5 w-[1120px] p-2">
-      <h1 className="text-2xl font-bold">Comments:</h1>
-      <CommentList comments={commentsData} />
+    <div className="m-5 p-2">
+      <h1 className="text-l font-bold">{Commentss?.length} Comments</h1>
+      <CommentList comments={Commentss} />
     </div>
   );
 };

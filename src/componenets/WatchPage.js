@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { CloseMenu } from "../Utils/appSlice";
-import { useSearchParams } from "react-router-dom";
-import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
-import VideoInfo from "./VideoInfo";
+import VideoPreview from "./VideoPreview";
 
 const WatchPage = () => {
-  const [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,25 +12,14 @@ const WatchPage = () => {
   });
 
   return (
-    <div className="mx-16">
-      <div className="flex px-5">
-        <div>
-          <iframe
-            width="1320"
-            height="630"
-            src={"https://www.youtube.com/embed/" + searchParams.get("v")}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </div>
-        <div className="w-full">
+    <div className="md:flex md:flex-wrap md:justify-center md:w-full mt-4">
+      <VideoPreview />
+      <div className="hidden md:block w-1/4  rounded-xl border h-[30rem] shadow-sm">
+        <p className="border-b p-2">Live Chat</p>
+        <div className=" bg-slate-50">
           <LiveChat />
         </div>
       </div>
-      <VideoInfo/>
-      <CommentsContainer />
     </div>
   );
 };

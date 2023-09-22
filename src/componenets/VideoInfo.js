@@ -1,7 +1,7 @@
 import React from "react";
 import VideoDescription from "./VideoDescription";
 import { useState, useEffect } from "react";
-import { VIDEO_API, YOUTUBE_VIDEO_API } from "../Utils/contants";
+import { VIDEO_API } from "../Utils/contants";
 import { useSearchParams } from "react-router-dom";
 
 const VideoInfo = () => {

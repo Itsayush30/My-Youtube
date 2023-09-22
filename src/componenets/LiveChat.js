@@ -3,6 +3,7 @@ import ChatMessage from "./ChatMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../Utils/chatSlice";
 import { generateRandomName, makeRandomMessage } from "../Utils/helper";
+import { AiOutlineSend } from "react-icons/ai";
 
 const LiveChat = () => {
   const dispatch = useDispatch();
@@ -26,15 +27,15 @@ const LiveChat = () => {
   }, []);
 
   return (
-    <div className=" border border-yellow-400 h-[630px] ">
-      <div className=" h-[580px] ml-2 p-2 border border-black bg-slate-100 rounded-l overflow-y-scroll flex flex-col-reverse ">
+    <div>
+      <div className=" box-border overflow-y-scroll flex flex-col-reverse h-96 ">
         {chatMessages.map((c, i) => (
           <ChatMessage key={i} name={c.name} message={c.message} />
         ))}
       </div>
       <div>
         <form
-          className=" mt-2 ml-2 p-2 border border-black rounded-md"
+          className=" bg-white flex p-2 gap-2 rounded-xl items-center"
           onSubmit={(e) => {
             e.preventDefault();
 
@@ -48,14 +49,17 @@ const LiveChat = () => {
           }}
         >
           <input
-            className="px-2"
+            className="outline-none border-b-2 w-full border-blue-200"
             type="text"
+            placeholder="Type....."
             value={livemessage}
             onChange={(e) => {
               setLivemessage(e.target.value);
             }}
           />
-          <button className="px-2 mx-2 bg-green-100">Send</button>
+          <button className="bg-none border-none">
+            <AiOutlineSend className="w-10 cursor-pointer" />
+          </button>
         </form>
       </div>
     </div>
