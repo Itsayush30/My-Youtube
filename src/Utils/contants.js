@@ -1,4 +1,5 @@
-const GOOGLE_API_KEY = "AIzaSyDfK8ZOQGGcWIFkDkFmxFxf7f0eVzLrtzY";
+
+export const GOOGLE_API_KEY = "AIzaSyDfK8ZOQGGcWIFkDkFmxFxf7f0eVzLrtzY";
 
 export const OFFSET_LIVE_CHAT = 25; //here because it can be different for diffeent devise
 
@@ -18,6 +19,7 @@ export const COMMENTS_API =
   "https://www.googleapis.com/youtube/v3/commentThreads?textFormat=plainText&part=snippet&maxResults=50&key=" +
   GOOGLE_API_KEY +
   "&videoId=";
+
 
 //Generated this function from chatgpt
 export function formatNumber(number) {
