@@ -39,9 +39,6 @@ export const VideoDescription = ({ info, channelInfo }) => {
     statistics: { viewCount, likeCount } = {},
   } = info ?? {};
 
-  const channelID = info?.snippet?.channelId;
-  console.log(channelID);
-
   /*/info ?? {} uses the nullish coalescing operator (??) 
   to ensure that if info is null or undefined, an empty object {} 
   is used as a fallback. This prevents potential "Cannot read property '...' 
@@ -67,7 +64,7 @@ export const VideoDescription = ({ info, channelInfo }) => {
     <div className="m-2">
       <div className="m-2">
         <p className="font-extrabold text-xl">{title}</p>
-        <div className="flex items-center">
+        <div className="flex items-center mb-3 mt-1">
           <div>
             <img
               className="rounded-full h-12"

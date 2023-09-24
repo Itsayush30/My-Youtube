@@ -1,4 +1,3 @@
-
 export const GOOGLE_API_KEY = "AIzaSyDfK8ZOQGGcWIFkDkFmxFxf7f0eVzLrtzY";
 
 export const OFFSET_LIVE_CHAT = 25; //here because it can be different for diffeent devise
@@ -20,7 +19,11 @@ export const COMMENTS_API =
   GOOGLE_API_KEY +
   "&videoId=";
 
-
+  export const SEARCH_RESULT_API =
+  "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&key=" +
+  GOOGLE_API_KEY +
+  "&q=";
+  
 //Generated this function from chatgpt
 export function formatNumber(number) {
   if (number >= 1e9) {
