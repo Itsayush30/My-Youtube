@@ -17,11 +17,10 @@ const VideoDescription = ({ info }) => {
 
 export default VideoDescription; */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   calculateTimeAgo,
   formatNumber,
-  GOOGLE_API_KEY,
 } from "../Utils/contants";
 import {
   HiThumbDown,
@@ -33,10 +32,10 @@ import { PiShareFat } from "react-icons/pi";
 import { BiSolidBellRing } from "react-icons/bi";
 import { json } from "react-router-dom";
 
-export const VideoDescription = ({ info }) => {
+export const VideoDescription = ({ info, channelInfo }) => {
   const [showDescription, setShowDescription] = useState(false);
   const {
-    snippet: { channelTitle, title, description, publishedAt, channelId } = {},
+    snippet: { channelTitle, title, description, publishedAt } = {},
     statistics: { viewCount, likeCount } = {},
   } = info ?? {};
 
@@ -59,27 +58,9 @@ export const VideoDescription = ({ info }) => {
     ? description
     : `${description?.substring(0, 200)}...`;
 
-  const [channel, setChannel] = useState([]);
-
-  useEffect(() => {
-    getChannel();
-  }, []);
-
-  const getChannel = async () => {
-    const data = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelID}&key=` +
-        GOOGLE_API_KEY
-    );
-    const json = await data.json();
-
-    const channelInfo = json?.items?.[0] ?? null;
-
-    console.log(channelInfo);
-    setChannel(channelInfo);
-  };
 
   const { snippet: { thumbnails } = {}, statistics: { subscriberCount } = {} } =
-    channel ?? {};
+    channelInfo ?? {};
 
   //optional chaining is very important
   return (
