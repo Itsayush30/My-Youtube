@@ -1,4 +1,4 @@
-export const GOOGLE_API_KEY = "AIzaSyDfK8ZOQGGcWIFkDkFmxFxf7f0eVzLrtzY";
+export const GOOGLE_API_KEY = "AIzaSyD7cgMLUWU6EtTP5MvpB_rHFqJm30LmfB4";
 
 export const OFFSET_LIVE_CHAT = 25; //here because it can be different for diffeent devise
 

@@ -74,9 +74,11 @@ const Head = () => {
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setShowSuggestions(false)}
         />
+        <a href={"/result/?search_query=" + searchQuery } >
         <button className="py-2 px-5 rounded-r-full border border-gray-400 bg-gray-100">
           🔍
         </button>
+        </a>
         {showSuggestions && (
           <div className="absolute bg-white py-2 px-2 w-[705.69px] shadow-lg rounded-lg border border-gray-100">
             <ul>

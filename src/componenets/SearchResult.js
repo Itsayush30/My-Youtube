@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { SEARCH_RESULT_API } from "../Utils/contants";
 import SearchResultsCard from "./SearchResultsCard";
 import ButtonList from "./ButtonList";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const SearchResult = () => {
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get("search_query");
+
   useEffect(() => {
     getResults();
   }, []);
-
-  const searchTerm = "iphone";
 
   const [searchResult, setSearchResult] = useState([]);
 
