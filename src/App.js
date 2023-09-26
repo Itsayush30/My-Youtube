@@ -3,19 +3,38 @@ import Head from "./componenets/Head";
 import Body from "./componenets/Body";
 import { Provider } from "react-redux";
 import store from "./Utils/Store";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
 import SearchShimmer from "./componenets/SearchShimmer";
 import MainContainer from "./componenets/MainContainer";
 import WatchShimmer from "./componenets/WatchShimmer";
+import SideBar from "./componenets/Sidebar";
 
 const SearchResult = lazy(() => import("./componenets/SearchResult"));
 const WatchPage = lazy(() => import("./componenets/WatchPage"));
 
-const appRouter = createBrowserRouter([
+
+function App() {
+  return (
+    <Provider store={store}>
+      <div>
+        <Head />
+        <div className="flex">
+        <SideBar/>
+        <Outlet/>
+        </div>
+      </div>
+    </Provider>
+  );
+}
+
+export default App;
+
+
+export const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Body />,
+    element: <App />,
     children: [
       {
         path: "/",
@@ -41,15 +60,3 @@ const appRouter = createBrowserRouter([
   },
 ]);
 
-function App() {
-  return (
-    <Provider store={store}>
-      <div>
-        <Head />
-        <RouterProvider router={appRouter} />
-      </div>
-    </Provider>
-  );
-}
-
-export default App;
