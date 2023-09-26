@@ -9,7 +9,7 @@ const VideoCard = ({ info }) => {
   const { viewCount } = statistics ?? {};
 
   return (
-    <div className="w-72 p-2 m-3">
+    <div className="w-72 p-2">
       <img className="rounded-xl" alt="thumbnail" src={thumbnails.medium.url} />
       <ul>
         <li className="font-bold p-2">{title}</li>

@@ -1,29 +1,41 @@
-import './App.css';
-import Head from './componenets/Head';
-import Body from './componenets/Body';
-import { Provider } from 'react-redux';
-import store from './Utils/Store';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import MainContainer from './componenets/MainContainer';
-import WatchPage from './componenets/WatchPage';
-import SearchResult from './componenets/SearchResult';
+import "./App.css";
+import Head from "./componenets/Head";
+import Body from "./componenets/Body";
+import { Provider } from "react-redux";
+import store from "./Utils/Store";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import SearchShimmer from "./componenets/SearchShimmer";
+import MainContainer from "./componenets/MainContainer";
+import WatchShimmer from "./componenets/WatchShimmer";
+
+const SearchResult = lazy(() => import("./componenets/SearchResult"));
+const WatchPage = lazy(() => import("./componenets/WatchPage"));
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <Body/>,
+    element: <Body />,
     children: [
       {
         path: "/",
-        element: <MainContainer/>,
+        element: <MainContainer />,
       },
       {
         path: "watch",
-        element: <WatchPage/>,
+        element: (
+          <Suspense fallback={<WatchShimmer/>}>
+            <WatchPage />
+          </Suspense>
+        ),
       },
       {
         path: "Result",
-        element: <SearchResult/>,
+        element: (
+          <Suspense fallback={SearchShimmer}>
+            <SearchResult />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -32,10 +44,10 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-    <div>
-     <Head />
-     <RouterProvider router={appRouter} />
-    </div>
+      <div>
+        <Head />
+        <RouterProvider router={appRouter} />
+      </div>
     </Provider>
   );
 }
