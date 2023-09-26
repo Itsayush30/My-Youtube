@@ -71,38 +71,3 @@ export function calculateTimeAgo(publishedAt) {
 }
 
 
-const formatDescription = (descriptionText) => {
-  if (!descriptionText || typeof descriptionText !== "string") {
-    return [];
-  }
-
-  const urlRegex = /(http[s]?:\/\/[^\s]+)/g;
-  const hashtagRegex = /#(\w+)/g;
-
-  const lines = descriptionText.split("\n");
-  const formattedLines = lines.map((line, index) => {
-    const words = line.split(" ");
-    const formattedWords = words.map((word, wordIndex) => {
-      if (urlRegex.test(word)) {
-        return (
-          <span key={wordIndex} className="text-blue-500">
-            <a href={word} target="_blank">
-              {word}
-            </a>
-          </span>
-        );
-      } else if (hashtagRegex.test(word)) {
-        return (
-          <span key={wordIndex} className="text-blue-600">
-            {word}
-          </span>
-        );
-      }
-      return <span key={wordIndex}>{word}</span>;
-    });
-
-    return <p key={index}>{formattedWords}</p>;
-  });
-
-  return formattedLines;
-};

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChatMessage from "./ChatMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../Utils/chatSlice";
-import { generateRandomName, makeRandomMessage } from "../Utils/helper";
+import { generateRandomName, generateRandomCompliment } from "../Utils/helper";
 import { AiOutlineSend } from "react-icons/ai";
 
 const LiveChat = () => {
@@ -18,7 +18,7 @@ const LiveChat = () => {
       dispatch(
         addMessage({
           name: generateRandomName(),
-          message: makeRandomMessage(20),
+          message: generateRandomCompliment(),
         })
       );
     }, 1500);
