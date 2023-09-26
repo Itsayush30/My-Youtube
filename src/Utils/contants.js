@@ -55,11 +55,21 @@ export function calculateTimeAgo(publishedAt) {
   } else if (timeDifference < 86400000) {
     const hoursAgo = Math.floor(timeDifference / 3600000);
     return `${hoursAgo} hour${hoursAgo !== 1 ? "s" : ""} ago`;
-  } else {
+  } else if (timeDifference < 604800000) {
     const daysAgo = Math.floor(timeDifference / 86400000);
     return `${daysAgo} day${daysAgo !== 1 ? "s" : ""} ago`;
+  } else if (timeDifference < 2629800000) {
+    const weeksAgo = Math.floor(timeDifference / 604800000);
+    return `${weeksAgo} week${weeksAgo !== 1 ? "s" : ""} ago`;
+  } else if (timeDifference < 31536000000) {
+    const monthsAgo = Math.floor(timeDifference / 2629800000);
+    return `${monthsAgo} month${monthsAgo !== 1 ? "s" : ""} ago`;
+  } else {
+    const yearsAgo = Math.floor(timeDifference / 31536000000);
+    return `${yearsAgo} year${yearsAgo !== 1 ? "s" : ""} ago`;
   }
 }
+
 
 const formatDescription = (descriptionText) => {
   if (!descriptionText || typeof descriptionText !== "string") {

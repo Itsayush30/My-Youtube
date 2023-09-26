@@ -5,6 +5,9 @@ import { YOUTUBE_SEARCH_API } from "../Utils/contants";
 import { cacheResults } from "../Utils/searchSlice";
 import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
+import UserImage from "../Image/Ayush.png";
+import { BsBell } from "react-icons/bs";
+import { AiOutlineVideoCameraAdd } from "react-icons/ai";
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,6 +83,7 @@ const Head = () => {
             <input
               className="w-[650px] border border-gray-400 h-11 p-2 rounded-l-full"
               type="text"
+              placeholder="Search YouTube"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setShowSuggestions(true)}
@@ -91,7 +95,7 @@ const Head = () => {
             </Link>
           </div>
           {showSuggestions && (
-            <div className=" absolute w-[650px] bg-white py-2 px-2 rounded-lg mb-11">
+            <div className=" absolute w-[650px] bg-white py-2 px-2 rounded-lg mb-11 ml-10">
               <ul>
                 {suggestions.map((s) => (
                   <li
@@ -115,11 +119,13 @@ const Head = () => {
           )}
         </div>
       </div>
-      <div>
+      <div className="flex items-center">
+        <AiOutlineVideoCameraAdd className="text-2xl cursor-pointer" />
+        <BsBell className="text-2xl ml-6 cursor-pointer" />
         <img
-          className="h-8 col-span-1"
+          className="ml-6 h-10 col-span-1 rounded-full cursor-pointer"
           alt="user"
-          src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+          src={UserImage}
         />
       </div>
     </div>

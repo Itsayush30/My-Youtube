@@ -4,6 +4,9 @@ import SearchResultsCard from "./SearchResultsCard";
 import ButtonList from "./ButtonList";
 import { Link, useSearchParams } from "react-router-dom";
 
+// Import your SearchShimmer component here
+import SearchShimmer from "./SearchShimmer";
+
 const SearchResult = () => {
   const [searchParams] = useSearchParams();
   const searchTerm = searchParams.get("search_query");
@@ -27,11 +30,16 @@ const SearchResult = () => {
       <div className="mx-space-y-2 mb-2 md:h-14 md:m-2 md:my-3 flex-col md:flex-row flex cursor-pointer p-1 rounded-lg">
         <ButtonList />
       </div>
-      {searchResult?.map((r) => (
-        <Link to={"/watch?v=" + r.id.videoId}>
-          <SearchResultsCard info={r} />{" "}
-        </Link> //if there is watch?v= instead of /watch?v it will take to /result/watch?v
-      ))}
+      {/* Conditional rendering */}
+      {searchResult.length === 0 ? (
+        <SearchShimmer /> // Render the shimmer component when searchResult is empty
+      ) : (
+        searchResult.map((r) => (
+          <Link to={"/watch?v=" + r.id.videoId}>
+            <SearchResultsCard info={r} />
+          </Link>
+        ))
+      )}
     </div>
   );
 };

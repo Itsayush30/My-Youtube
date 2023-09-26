@@ -18,10 +18,7 @@ const VideoDescription = ({ info }) => {
 export default VideoDescription; */
 
 import React, { useState } from "react";
-import {
-  calculateTimeAgo,
-  formatNumber,
-} from "../Utils/contants";
+import { calculateTimeAgo, formatNumber } from "../Utils/contants";
 import {
   HiThumbDown,
   HiThumbUp,
@@ -30,7 +27,6 @@ import {
 } from "react-icons/hi";
 import { PiShareFat } from "react-icons/pi";
 import { BiSolidBellRing } from "react-icons/bi";
-import { json } from "react-router-dom";
 
 export const VideoDescription = ({ info, channelInfo }) => {
   const [showDescription, setShowDescription] = useState(false);
@@ -54,7 +50,6 @@ export const VideoDescription = ({ info, channelInfo }) => {
   const truncatedDescription = showDescription
     ? description
     : `${description?.substring(0, 200)}...`;
-
 
   const { snippet: { thumbnails } = {}, statistics: { subscriberCount } = {} } =
     channelInfo ?? {};
@@ -80,8 +75,8 @@ export const VideoDescription = ({ info, channelInfo }) => {
           </div>
           <div>
             {issubscribe ? (
-              <div className="bg-black text-white flex font-semibold rounded-full ml-8 px-[0.87rem] py-[0.40rem]">
-                <BiSolidBellRing className="text-xl" />
+              <div className="bg-black text-white flex font-semibold rounded-full ml-8 px-[0.87rem] py-[0.40rem] items-center ">
+                <BiSolidBellRing className="text-xl mt-0" />
                 <button className="ml-1" onClick={() => setIsSubscribe(false)}>
                   Subscribed
                 </button>

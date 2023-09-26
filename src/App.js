@@ -1,9 +1,8 @@
 import "./App.css";
 import Head from "./componenets/Head";
-import Body from "./componenets/Body";
 import { Provider } from "react-redux";
 import store from "./Utils/Store";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
 import SearchShimmer from "./componenets/SearchShimmer";
 import MainContainer from "./componenets/MainContainer";
@@ -13,15 +12,14 @@ import SideBar from "./componenets/Sidebar";
 const SearchResult = lazy(() => import("./componenets/SearchResult"));
 const WatchPage = lazy(() => import("./componenets/WatchPage"));
 
-
 function App() {
   return (
     <Provider store={store}>
       <div>
         <Head />
         <div className="flex">
-        <SideBar/>
-        <Outlet/>
+          <SideBar />
+          <Outlet />
         </div>
       </div>
     </Provider>
@@ -29,7 +27,6 @@ function App() {
 }
 
 export default App;
-
 
 export const appRouter = createBrowserRouter([
   {
@@ -43,7 +40,7 @@ export const appRouter = createBrowserRouter([
       {
         path: "watch",
         element: (
-          <Suspense fallback={<WatchShimmer/>}>
+          <Suspense fallback={<WatchShimmer />}>
             <WatchPage />
           </Suspense>
         ),
@@ -51,7 +48,7 @@ export const appRouter = createBrowserRouter([
       {
         path: "Result",
         element: (
-          <Suspense fallback={SearchShimmer}>
+          <Suspense fallback={<SearchShimmer />}>
             <SearchResult />
           </Suspense>
         ),
@@ -59,4 +56,3 @@ export const appRouter = createBrowserRouter([
     ],
   },
 ]);
-

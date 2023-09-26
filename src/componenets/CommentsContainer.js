@@ -50,7 +50,7 @@ const CommentList = ({ comments }) => {
 };
 
 const CommentsContainer = () => {
-  const [Commentss, setComments] = useState([]);
+  const [CommentsApi, setCommentsApi] = useState([]);
 
   const [searchParams] = useSearchParams();
 
@@ -64,13 +64,13 @@ const CommentsContainer = () => {
     const data = await fetch(COMMENTS_API + VideoId);
     const json = await data.json();
     console.log(json.items);
-    setComments(json.items);
+    setCommentsApi(json.items);
   };
 
   return (
     <div className="m-5 p-2">
-      <h1 className="text-l font-bold">{Commentss?.length} Comments</h1>
-      <CommentList comments={Commentss} />
+      <h1 className="text-l font-bold">{CommentsApi?.length} Comments</h1>
+      <CommentList comments={CommentsApi} />
     </div>
   );
 };
